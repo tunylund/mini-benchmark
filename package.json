@@ -1,6 +1,6 @@
 {
   "name": "mini-benchmark",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Minimal benchmarking lib with support for noticing regressions",
   "main": "lib/src/mini-benchmark.js",
   "types": "lib/src/mini-benchmark.d.ts",

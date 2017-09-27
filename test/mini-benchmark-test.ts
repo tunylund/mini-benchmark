@@ -65,15 +65,37 @@ describe('mini-benchmark', function () {
 
   describe('formatResult', function () {
 
-    it('should format a result object nicely', () => {
-      let testResult = {} as any
-      const previousResults = [{ name: 'test', duration: 0 }]
-      mb(previousResults, () => {}, () => {}, (test) => {
-        testResult = test('test', ctx => {})
-      })
-      const actual = formatResult(testResult as any)
-      assert.deepEqual(actual,
-        `${testResult.duration.toFixed(2)} test ${testResult.regression.toFixed(2)} (100%) regression`)
+    it('should ignore regression that is smaller than threshold', () => {
+      const testResult = {
+        name: 'test',
+        duration: 100.0000,
+        regression: 5.0000,
+        diffPercent: 5
+      }
+      const actual = formatResult(testResult, 10)
+      assert.deepEqual(actual, `100.00 test`)
+    })
+
+    it('should format a result object with regression nicely', () => {
+      const testResult = {
+        name: 'test',
+        duration: 100.0000,
+        regression: 50.0000,
+        diffPercent: 50
+      }
+      const actual = formatResult(testResult)
+      assert.deepEqual(actual, `100.00 test +50.00 50% regression`)
+    })
+
+    it('should format a result object with improvement nicely', () => {
+      const testResult = {
+        name: 'test',
+        duration: 50.0000,
+        regression: -50.0000,
+        diffPercent: -50
+      }
+      const actual = formatResult(testResult)
+      assert.deepEqual(actual, `50.00 test -50.00 50% improvement`)
     })
 
   })
