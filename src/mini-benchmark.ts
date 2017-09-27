@@ -38,7 +38,7 @@ export function miniBenchmark (
   return results
 }
 
-export function output (result: TestResult): string {
+export function formatResult (result: TestResult): string {
   const { duration, diffPercent, name, regression } = result
   let formatted = [ duration.toFixed(2), name ]
   if (regression) formatted.push(regression.toFixed(2))

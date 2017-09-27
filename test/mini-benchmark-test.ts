@@ -1,4 +1,4 @@
-import { miniBenchmark as mb, output as output } from '../src/mini-benchmark'
+import { miniBenchmark as mb, formatResult } from '../src/mini-benchmark'
 import * as assert from 'assert'
 
 describe('mini-benchmark', function () {
@@ -63,15 +63,15 @@ describe('mini-benchmark', function () {
 
   })
 
-  describe('output', function () {
+  describe('formatResult', function () {
 
-    it('should output a result object nicely', () => {
+    it('should format a result object nicely', () => {
       let testResult = {} as any
       const previousResults = { 'test': { name: 'test', duration: 0 } }
       mb(previousResults, () => {}, () => {}, (test) => {
         testResult = test('test', ctx => {})
       })
-      const actual = output(testResult as any)
+      const actual = formatResult(testResult as any)
       assert.deepEqual(actual,
         `${testResult.duration.toFixed(2)} test ${testResult.regression.toFixed(2)} (100%) regression`)
     })
