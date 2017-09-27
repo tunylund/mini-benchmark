@@ -2,7 +2,7 @@
   "name": "mini-benchmark",
   "version": "0.1.0",
   "description": "Minimal benchmarking lib with support for noticing regressions",
-  "main": "lib/src/mini-perf-test.js",
+  "main": "lib/src/mini-benchmark.js",
   "types": "lib/src/mini-benchmark.d.ts",
   "repository": "git@github.com:tunylund/mini-benchmark.git",
   "bugs": "https://github.com/tunylund/mini-benchmark/issues",
