@@ -12,7 +12,7 @@ export interface TestFn {
 }
 
 export function miniBenchmark (
-  previousTestResults: {[key: string]: TestResult},
+  previousTestResults: TestResult[],
   before: () => any,
   after: (context: any) => void,
   suite: (test: TestFn) => void): TestResult[] {
@@ -23,7 +23,7 @@ export function miniBenchmark (
   suite((name: string, fn: (context: any) => void): TestResult => {
     const durations = runTest(name, context, fn)
     const duration = average(durations)
-    const previousResult = (previousTestResults[name] || {}) as TestResult
+    const previousResult = (previousTestResults.filter(x => x.name === name)[0] || {}) as TestResult
     const previousDuration = previousResult.duration
     const regression = duration - previousDuration
     const diffPercent = regression / Math.max(duration, previousDuration) * 100

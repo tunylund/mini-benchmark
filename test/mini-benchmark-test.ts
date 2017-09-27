@@ -9,7 +9,7 @@ describe('mini-benchmark', function () {
       let actual
       const before = () => 'foo'
       const after = (ctx: string) => {}
-      mb({}, before, after, (test) => {
+      mb([], before, after, (test) => {
         test('test', (ctx: string) => actual = ctx)
       })
       assert.equal(actual, 'foo')
@@ -19,7 +19,7 @@ describe('mini-benchmark', function () {
       let actual
       const before = () => 'foo'
       const after = (ctx: string) => actual = ctx
-      mb({}, before, after, (test) => {})
+      mb([], before, after, (test) => {})
       assert.equal(actual, 'foo')
     })
 
@@ -32,7 +32,7 @@ describe('mini-benchmark', function () {
 
     it('should run a test 100000 times in 9 iterations', () => {
       let i = 0
-      mb({}, before, after, (test) => {
+      mb([], before, after, (test) => {
         test('test', ctx => i++)
       })
       assert.equal(i, 100000 * 9)
@@ -40,7 +40,7 @@ describe('mini-benchmark', function () {
 
     it('should return the test results', () => {
       let testResult = { duration: 0 }
-      const results = mb({}, before, after, (test) => {
+      const results = mb([], before, after, (test) => {
         testResult = test('test', ctx => {})
       })
       assert(testResult.duration > 0)
@@ -49,7 +49,7 @@ describe('mini-benchmark', function () {
 
     it('should report regression', () => {
       let duration = 0
-      const previousResults = { 'test': { name: 'test', duration: 0 } }
+      const previousResults = [{ name: 'test', duration: 0 }]
       const results = mb(previousResults, before, after, (test) => {
         duration = test('test', ctx => {}).duration
       })
@@ -67,7 +67,7 @@ describe('mini-benchmark', function () {
 
     it('should format a result object nicely', () => {
       let testResult = {} as any
-      const previousResults = { 'test': { name: 'test', duration: 0 } }
+      const previousResults = [{ name: 'test', duration: 0 }]
       mb(previousResults, () => {}, () => {}, (test) => {
         testResult = test('test', ctx => {})
       })

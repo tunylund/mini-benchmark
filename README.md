@@ -10,5 +10,14 @@ mb({}, test => {
     // do something long
   })
 }).map(formatResult).map(x => console.log(x))
+// => 10.00 some-test
 ```
 
+```
+const previousTestResults = {}
+mb({}, test => {
+  test('some-test', () => {
+    // do something long
+  })
+}).map(formatResult).map(x => console.log(x))
+```
