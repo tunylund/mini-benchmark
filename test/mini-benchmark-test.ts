@@ -1,4 +1,4 @@
-import { miniBenchmark as mb, output as output } from '../lib/mini-benchmark'
+import { miniBenchmark as mb, output as output } from '../src/mini-benchmark'
 import * as assert from 'assert'
 
 describe('mini-benchmark', function () {

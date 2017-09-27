@@ -1,33 +1,21 @@
 const { performance } = require('perf_hooks')
 
-interface TestResult {
+export interface TestResult {
   duration: number
   name: string
   regression?: number
   diffPercent?: number
 }
 
-interface Before {
-  (): any
-}
-
-interface After {
-  (context: any): void
-}
-
-interface TestFn {
+export interface TestFn {
   (name: string, fn: (context: any) => void): TestResult
 }
 
-interface Suite {
-  (test: TestFn): void
-}
-
-function miniBenchmark (
+export function miniBenchmark (
   previousTestResults: {[key: string]: TestResult},
-  before: Before,
-  after: After,
-  suite: Suite): TestResult[] {
+  before: () => any,
+  after: (context: any) => void,
+  suite: (test: TestFn) => void): TestResult[] {
 
   let context = before()
   let results: TestResult[] = []
@@ -50,7 +38,7 @@ function miniBenchmark (
   return results
 }
 
-function output (result: TestResult): string {
+export function output (result: TestResult): string {
   const { duration, diffPercent, name, regression } = result
   let formatted = [ duration.toFixed(2), name ]
   if (regression) formatted.push(regression.toFixed(2))
@@ -76,10 +64,4 @@ function average (numbers: number[]) {
     .sort((a: number, b: number) => a < b ? -1 : a > b ? 1 : 0)
     .slice(1, -1)
     .reduce((sum: number, value) => sum += value, 0) / (numbers.length - 2)
-}
-
-export {
-  miniBenchmark,
-  output,
-  TestResult
 }

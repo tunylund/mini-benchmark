@@ -2,14 +2,19 @@
   "name": "mini-benchmark",
   "version": "1.0.0",
   "description": "Minimal benchmarking lib with support for noticing regressions",
-  "main": "dist/mini-perf-test.js",
-  "types": "dist/mini-benchmark.d.ts",
+  "main": "lib/src/mini-perf-test.js",
+  "types": "lib/src/mini-benchmark.d.ts",
+  "repository": "git@github.com:tunylund/mini-benchmark.git",
+  "bugs": "https://github.com/tunylund/mini-benchmark/issues",
+  "files": [
+    "lib"
+  ],
   "scripts": {
-    "clear": "rm -rf dist/*",
+    "clear": "rm -rf lib/*",
     "build": "echo '\nbuilding...' && tsc && npm run lint && npm run test",
     "lint": "tslint -p .",
-    "test": "mocha dist/test/*.js",
-    "dev": "fswatch -o lib/* test/* | xargs -n1 -I{} npm run build --silent"
+    "test": "mocha lib/test/*-test.js",
+    "dev": "fswatch -o src/* test/* | xargs -n1 -I{} npm run build --silent"
   },
   "author": "Tuomas Nylund",
   "license": "MIT",
