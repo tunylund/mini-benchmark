@@ -15,7 +15,10 @@ mb([], test => {
 ```
 
 ```
+import { miniBenchmark as mb, formatResult} from 'mini-benchmark'
+
 const previousTestResults = [{ name: 'some-test', duration: 100 }]
+
 mb(previousTestResults, test => {
   test('some-test', () => {
     // do something long
